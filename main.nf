@@ -26,7 +26,7 @@ process sgdemux_folder {
     val(min_delta)
 
     output:
-    path("demuxed_file")
+    path(params.output_dir_name)
 
     """
     mkdir ${output_dir_name}
