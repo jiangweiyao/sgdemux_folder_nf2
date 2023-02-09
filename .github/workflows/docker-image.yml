@@ -20,7 +20,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag jiangweiyao/sgdemux:$TIME_STAMP
+      run: docker build . --file Dockerfile --tag jiangweiyao/sgdemux:$TIME_STAMP --tag jiangweiyao/sgdemux:latest
     - name: docker push
       run: |
-        docker push jiangweiyao/sgdemux:$TIME_STAMP
+        docker push jiangweiyao/sgdemux --all-tags
