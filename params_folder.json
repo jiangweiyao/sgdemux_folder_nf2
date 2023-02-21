@@ -4,4 +4,5 @@
 "output_dir_name":"demuxed_file",
 "allowed_mismatches":"3",
 "min_delta":"2",
-"out":"s3://singulargenomics1/users/JYao/nf/temp_out/sgdemux"}
+"out":"/home/ubuntu/test_demux",
+"lane_level":false}
