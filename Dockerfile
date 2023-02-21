@@ -6,4 +6,4 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:$PATH"
 
 RUN git clone https://github.com/Singular-Genomics/singular-demux.git
-RUN cd /singular-demux && cargo install --path /singular-demux
+RUN cd /singular-demux && cargo install --path /singular-demux --locked
