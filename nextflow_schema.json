@@ -1,61 +1,75 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/jiangweiyao/sgdemux_folder_nf2/master/nextflow_schema.json",
+    "$id": "https://raw.githubusercontent.com/YOUR_PIPELINE/master/nextflow_schema.json",
     "title": "Nextflow pipeline parameters",
-    "description": "This pipeline demultiplexes the raw fastq files from the Singular Genomic G4 Instrument. The JSON Schema was built using the nf-core pipeline schema builder.",
+    "description": "This pipeline uses Nextflow and processes some kind of data. The JSON Schema was built using the nf-core pipeline schema builder.",
     "type": "object",
-    "properties": {
-        "fastq_source_folder": {
-            "type": "string",
-            "description": "Folder containing the files you want to demux",
-            "default": "s3://singular-public-repo/example_raw_files/unfiltered_fastq/"
-        },
-        "file_name_root": {
-            "type": "string",
-            "description": "File Root Name",
-            "default": "Undetermined_"
-        },
-        "samplesheet": {
-            "type": "string",
-            "description": "Singular Samplesheet",
-            "default": "s3://singular-public-repo/example_raw_files/samplesheet.csv"
-        },
-        "output_dir_name": {
-            "type": "string",
-            "description": "Out directory name",
-            "default": "demuxed_file"
-        },
-        "allowed_mismatches": {
-            "type": "integer",
-            "description": "Combined mismatches allowed on barcode(s)",
-            "minimum": 0,
-            "maximum": 5,
-            "default": 3
-        },
-        "min_delta": {
-            "type": "integer",
-            "description": "Minimum delta from next closest match",
-            "default": 1,
-            "minimum": 1,
-            "maximum": 3
-        },
-        "out": {
-            "type": "string",
-            "description": "Output Location",
-            "default": "s3://singulargenomics1/users/JYao/nf/temp_out/sgdemux1"
-        },
-        "lane": {
-            "type": "boolean",
-            "description": "Run demuxer on a per lane basis if true. Otherwise, combine all the lanes."
+    "definitions": {
+        "parameters": {
+            "title": "Parameters",
+            "type": "object",
+            "description": "Parameters to run pipeline",
+            "default": "",
+            "properties": {
+                "fastq_source_folder": {
+                    "type": "string",
+                    "description": "Folder containing the files you want to demux",
+                    "default": "s3://singular-public-repo/example_raw_files/unfiltered_fastq/"
+                },
+                "file_name_root": {
+                    "type": "string",
+                    "description": "File Root Name",
+                    "default": "Undetermined_"
+                },
+                "samplesheet": {
+                    "type": "string",
+                    "description": "Singular Samplesheet",
+                    "default": "s3://singular-public-repo/example_raw_files/samplesheet.csv"
+                },
+                "output_dir_name": {
+                    "type": "string",
+                    "description": "Out directory name",
+                    "default": "demuxed_file"
+                },
+                "allowed_mismatches": {
+                    "type": "integer",
+                    "description": "Combined mismatches allowed on barcode(s)",
+                    "minimum": 0,
+                    "maximum": 5,
+                    "default": 3
+                },
+                "min_delta": {
+                    "type": "integer",
+                    "description": "Minimum delta from next closest match",
+                    "default": 1,
+                    "minimum": 1,
+                    "maximum": 3
+                },
+                "out": {
+                    "type": "string",
+                    "description": "Output Location",
+                    "default": "s3://singulargenomics1/users/JYao/nf/temp_out/sgdemux1"
+                },
+                "lane": {
+                    "type": "boolean",
+                    "description": "Run demuxer on a per lane basis"
+                }
+            },
+            "required": [
+                "fastq_source_folder",
+                "file_name_root",
+                "samplesheet",
+                "output_dir_name",
+                "allowed_mismatches",
+                "min_delta",
+                "out",
+                "lane"
+            ]
         }
     },
-    "required": [
-        "fastq_source_folder",
-        "file_name_root",
-        "samplesheet",
-        "output_dir_name",
-        "allowed_mismatches",
-        "min_delta",
-        "out"
+    "allOf": [
+        {
+            "$ref": "#/definitions/parameters"
+        }
     ]
 }
