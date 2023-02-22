@@ -9,12 +9,19 @@ fastq_source_folder = Channel.fromPath(params.fastq_source_folder, type: "dir", 
 samplesheet = file(params.samplesheet)
 lanes = Channel.from( 1, 2, 3, 4 )
 
+if(params.filter_control) {
+    filter_control = "--filter-control-reads"
+}
+else {
+    filter_control = " "
+}
+
 workflow {
     if( params.lane_level) {
-        sgdemux_folder_lane_pipeline(fastq_source_folder, params.file_name_root, samplesheet, params.output_dir_name, params.allowed_mismatches, params.min_delta, lanes)
+        sgdemux_folder_lane_pipeline(fastq_source_folder, params.file_name_root, samplesheet, params.output_dir_name, params.allowed_mismatches, params.min_delta, lanes, filter_control, params.nmask_threshold)
     }
     else {
-        sgdemux_folder_pipeline(fastq_source_folder, params.file_name_root, samplesheet, params.output_dir_name, params.allowed_mismatches, params.min_delta)
+        sgdemux_folder_pipeline(fastq_source_folder, params.file_name_root, samplesheet, params.output_dir_name, params.allowed_mismatches, params.min_delta, filter_control, params.nmask_threshold)
     }
 }
 

@@ -8,7 +8,7 @@ samplesheet = file(params.samplesheet)
 lanes = Channel.from( 1, 2, 3, 4 )
 
 workflow {
-    sgdemux_folder_lane(fastq_source_folder, params.file_name_root, samplesheet, params.output_dir_name, params.allowed_mismatches, params.min_delta, lanes)
+    sgdemux_folder_lane(fastq_source_folder, params.file_name_root, samplesheet, params.output_dir_name, params.allowed_mismatches, params.min_delta, lanes, filter_control, nmask_threshold )
 }
 
 workflow sgdemux_folder_lane_pipeline {
@@ -20,8 +20,10 @@ workflow sgdemux_folder_lane_pipeline {
         allowed_mismatches
         min_delta
         lanes
+        filter_control
+        nmask_threshold
     main:
-        sgdemux_folder_lane(fastq_source_folder, file_name_root, samplesheet, output_dir_name, allowed_mismatches, min_delta, lanes)
+        sgdemux_folder_lane(fastq_source_folder, file_name_root, samplesheet, output_dir_name, allowed_mismatches, min_delta, lanes, filter_control, nmask_threshold)
     emit:
         sgdemux_folder_lane.out
 }
@@ -40,13 +42,15 @@ process sgdemux_folder_lane {
     val(allowed_mismatches)
     val(min_delta)
     val(lanes)
+    val(filter_control)
+    val(nmask_threshold)
 
     output:
     path(params.output_dir_name+"_Lane*")
 
     """
     mkdir -p ${output_dir_name}_Lane${lanes}
-    sgdemux --fastqs ${fastq_source_folder}/${file_name_root} --sample-metadata ${samplesheet} --output-dir ${output_dir_name}_Lane${lanes} -l ${lanes} --allowed-mismatches ${allowed_mismatches} --min-delta ${min_delta}
+    sgdemux --fastqs ${fastq_source_folder}/${file_name_root} --sample-metadata ${samplesheet} --output-dir ${output_dir_name}_Lane${lanes} -l ${lanes} --allowed-mismatches ${allowed_mismatches} --min-delta ${min_delta} ${filter_control} --filter-failing-quality --quality-mask-threshold ${nmask_threshold}
     """
 }
 

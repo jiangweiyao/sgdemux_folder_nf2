@@ -5,10 +5,10 @@
     "description": "This pipeline uses Nextflow and processes some kind of data. The JSON Schema was built using the nf-core pipeline schema builder.",
     "type": "object",
     "definitions": {
-        "parameters": {
-            "title": "Parameters",
+        "required_parameters": {
+            "title": "Required Parameters",
             "type": "object",
-            "description": "Parameters to run pipeline",
+            "description": "Parameters to run pipeline (Defaults are examples)",
             "default": "",
             "properties": {
                 "fastq_source_folder": {
@@ -49,10 +49,6 @@
                     "type": "string",
                     "description": "Output Location",
                     "default": "s3://singulargenomics1/users/JYao/nf/temp_out/sgdemux1"
-                },
-                "lane": {
-                    "type": "boolean",
-                    "description": "Run demuxer on a per lane basis"
                 }
             },
             "required": [
@@ -62,14 +58,39 @@
                 "output_dir_name",
                 "allowed_mismatches",
                 "min_delta",
-                "out",
-                "lane"
+                "out"
             ]
+        },
+        "optional_parameters": {
+            "title": "Optional Parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "lane": {
+                    "type": "boolean",
+                    "description": "Run demuxer on a per lane basis"
+                },
+                "filter_control": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Remove reads flagged as control (typically PhiX) from all results"
+                },
+                "nmask_threshold": {
+                    "type": "number",
+                    "minimum": 0,
+                    "default": 2,
+                    "description": "Mask reads with Quality Score less than"
+                }
+            }
         }
     },
     "allOf": [
         {
-            "$ref": "#/definitions/parameters"
+            "$ref": "#/definitions/required_parameters"
+        },
+        {
+            "$ref": "#/definitions/optional_parameters"
         }
     ]
 }

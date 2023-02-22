@@ -2,7 +2,9 @@
 "file_name_root":"Undetermined_",
 "samplesheet":"s3://singular-public-repo/example_raw_files/samplesheet.csv",
 "output_dir_name":"demuxed_file",
-"allowed_mismatches":"3",
-"min_delta":"2",
+"allowed_mismatches":3,
+"min_delta":2,
 "out":"/home/ubuntu/test_demux",
-"lane_level":false}
+"lane_level":false,
+"filter_control":true,
+"nmask_threshold":2}
