@@ -67,7 +67,7 @@
             "description": "",
             "default": "",
             "properties": {
-                "lane": {
+                "lane_level": {
                     "type": "boolean",
                     "description": "Run demuxer on a per lane basis"
                 },
