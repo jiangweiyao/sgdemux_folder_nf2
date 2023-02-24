@@ -32,7 +32,7 @@ process sgdemux_folder_lane {
 
     //errorStrategy 'ignore'
     publishDir params.out, overwrite: true
-    memory '40 GB'
+    memory '30 GB'
     cpus 16
     input:
     path(fastq_source_folder)
