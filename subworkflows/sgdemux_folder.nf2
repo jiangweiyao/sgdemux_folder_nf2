@@ -45,7 +45,7 @@ process sgdemux_folder {
     val(nmask_threshold)
 
     output:
-    path("${params.output_dir_name/*")
+    path(params.output_dir_name)
 
     """
     mkdir -p ${output_dir_name}
