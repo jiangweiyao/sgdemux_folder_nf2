@@ -11,7 +11,7 @@ This workflow can be used to demultiplex the raw output fastq files from the G4 
 The "params_lane.json" file in the repo contains example parameters for running the demux workflow at the lane level. The "params_folder.json" file contains example parameters for running the demux workflow combining the lanes.
 
 ### Sample data
-You can download a tarball file containing an unfiltered_fastq dataset and corresponding samplesheets [here](https://singular-public-repo.s3.us-west-1.amazonaws.com/example_raw_files/unfiltered_fastq.tar.gz).
+You can download a tarball file containing an unfiltered_fastq dataset and corresponding samplesheets [here](https://singular-public-repo.s3.us-west-1.amazonaws.com/example_raw_files/unfiltered_fastq.tar.gz). The file needs to be untar-ed before use.
 
 ### Syntax
 Example command to run the workflow is below. Including the "-profile docker" requires docker and will pull the latest docker image containing the sgdemux at the first run to run the workflow. Remove this option if you want to use the sgdemux on your system, and can be called using the `sgdemux` command.
