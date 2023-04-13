@@ -3,7 +3,7 @@
 "samplesheet":"s3://singular-public-repo/example_raw_files/samplesheet.csv",
 "output_dir_name":"demuxed_file",
 "allowed_mismatches":3,
-"min_delta":2,
+"min_delta":1,
 "out":"/home/ubuntu/test_demux",
 "lane_level":true,
 "filter_control":true,
