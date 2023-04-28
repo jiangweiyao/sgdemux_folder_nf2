@@ -24,8 +24,9 @@ workflow sgdemux_folder_lane_pipeline {
         nmask_threshold
     main:
         sgdemux_folder_lane(fastq_source_folder, file_name_root, samplesheet, output_dir_name, allowed_mismatches, min_delta, lanes, filter_control, nmask_threshold)
+        //sgdemux_folder_lane.out[1].flatten().view()
     emit:
-        sgdemux_folder_lane.out
+        sgdemux_folder_lane.out[1].flatten()
 }
 
 process sgdemux_folder_lane {
@@ -46,7 +47,8 @@ process sgdemux_folder_lane {
     val(nmask_threshold)
 
     output:
-    path(params.output_dir_name+"_Lane*")
+    path(params.output_dir_name+"_Lane*/*")
+    path(params.output_dir_name+"_Lane*/**.fastq.gz")
 
     """
     mkdir -p ${output_dir_name}_Lane${lanes}

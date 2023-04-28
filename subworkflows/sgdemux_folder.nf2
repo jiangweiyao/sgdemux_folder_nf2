@@ -23,8 +23,9 @@ workflow sgdemux_folder_pipeline {
         nmask_threshold
     main:
         sgdemux_folder(fastq_source_folder, file_name_root, samplesheet, output_dir_name, allowed_mismatches, min_delta, filter_control, nmask_threshold)
+        //sgdemux_folder.out[1].flatten().view()
     emit:
-        sgdemux_folder.out 
+        sgdemux_folder.out[1].flatten()
 }
 
 
@@ -45,7 +46,8 @@ process sgdemux_folder {
     val(nmask_threshold)
 
     output:
-    path(params.output_dir_name)
+    path("${params.output_dir_name}/*")
+    path("${params.output_dir_name}/**.fastq.gz")
 
     """
     mkdir -p ${output_dir_name}
