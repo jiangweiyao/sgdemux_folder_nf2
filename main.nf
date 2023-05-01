@@ -20,7 +20,7 @@ else {
 workflow {
     if( params.lane_level) {
         sgdemux_folder_lane_pipeline(fastq_source_folder, params.file_name_root, samplesheet, params.output_dir_name, params.allowed_mismatches, params.min_delta, lanes, filter_control, params.nmask_threshold)
-        fastqc_multiqc_pipeline(sgdemux_folder_lane_pipeline.out.filter( !~/^Undetermined.*/ ))
+        fastqc_multiqc_pipeline(sgdemux_folder_lane_pipeline.out)
     }
     else {
         sgdemux_folder_pipeline(fastq_source_folder, params.file_name_root, samplesheet, params.output_dir_name, params.allowed_mismatches, params.min_delta, filter_control, params.nmask_threshold)

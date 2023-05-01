@@ -47,12 +47,12 @@ process sgdemux_folder_lane {
     val(nmask_threshold)
 
     output:
-    path(params.output_dir_name+"_Lane*/*")
-    path(params.output_dir_name+"_Lane*/**.fastq.gz")
+    path(params.output_dir_name+"_lane/*")
+    path(params.output_dir_name+"_lane/**.fastq.gz")
 
     """
-    mkdir -p ${output_dir_name}_Lane${lanes}
-    sgdemux --fastqs ${fastq_source_folder}/${file_name_root} --sample-metadata ${samplesheet} --output-dir ${output_dir_name}_Lane${lanes} -l ${lanes} --allowed-mismatches ${allowed_mismatches} --min-delta ${min_delta} ${filter_control} --filter-failing-quality --quality-mask-threshold ${nmask_threshold}
+    mkdir -p ${output_dir_name}_lane
+    sgdemux --fastqs ${fastq_source_folder}/${file_name_root} --sample-metadata ${samplesheet} --output-dir ${output_dir_name}_lane -l ${lanes} --allowed-mismatches ${allowed_mismatches} --min-delta ${min_delta} ${filter_control} --filter-failing-quality --quality-mask-threshold ${nmask_threshold}
     """
 }
 

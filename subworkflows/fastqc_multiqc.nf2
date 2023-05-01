@@ -7,9 +7,8 @@ process fastqc {
     cpus 2
     memory 4.GB
     errorStrategy 'ignore'
-    //publishDir params.out, mode: 'copy', overwrite: true
+    publishDir params.out+'/multiqc', pattern: '*.html', overwrite: true
 
-    //Note to self: specifying the file name literally coerces the input file into that name. It doesn't select files matching pattern of the literal.
     input:
     file(fastq) 
  
@@ -23,8 +22,8 @@ process fastqc {
 
 process multiqc {
     cpus 2
-    memory 2.GB
-    //publishDir params.out, mode: 'copy', overwrite: true
+    memory 4.GB
+    publishDir params.out+"multiqc", mode: 'copy', overwrite: true
 
     input:
     file(reports)
