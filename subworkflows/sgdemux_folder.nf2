@@ -52,6 +52,8 @@ process sgdemux_folder {
     """
     mkdir -p ${output_dir_name}
     sgdemux --fastqs ${fastq_source_folder}/${file_name_root} --sample-metadata ${samplesheet} --output-dir ${output_dir_name} --allowed-mismatches ${allowed_mismatches} --min-delta ${min_delta} ${filter_control} --filter-failing-quality --quality-mask-threshold ${nmask_threshold} 
+    mkdir -p ${output_dir_name}/metrics
+    mv ${output_dir_name}/*.tsv ${output_dir_name}/metrics/
     """
 }
 

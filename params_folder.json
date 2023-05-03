@@ -7,4 +7,5 @@
 "out":"s3://singulargenomics1/users/JYao/nf/temp_out/sgdemux2",
 "lane_level":false,
 "filter_control":true,
-"nmask_threshold":2}
+"nmask_threshold":2,
+"multiqc":true}

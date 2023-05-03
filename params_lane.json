@@ -7,4 +7,5 @@
 "out":"/home/ubuntu/test_demux",
 "lane_level":true,
 "filter_control":true,
-"nmask_threshold":2}
+"nmask_threshold":2,
+"multiqc":true}

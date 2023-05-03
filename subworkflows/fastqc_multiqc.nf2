@@ -7,7 +7,7 @@ process fastqc {
     cpus 2
     memory 4.GB
     errorStrategy 'ignore'
-    publishDir params.out+'/multiqc', pattern: '*.html', overwrite: true
+    publishDir params.out+'/fastqc', pattern: '*.html', overwrite: true
 
     input:
     file(fastq) 
@@ -23,24 +23,40 @@ process fastqc {
 process multiqc {
     cpus 2
     memory 4.GB
-    publishDir params.out+"multiqc", mode: 'copy', overwrite: true
+    publishDir params.out+"/multiqc", mode: 'copy', overwrite: true
 
     input:
-    file(reports)
+    tuple val(lane), file(reports)
 
     output:
-    file "multiqc_report.html"
+    file "multiqc_report*.html"
 
     """
-    multiqc $reports
+    multiqc -n multiqc_report_${lane}.html $reports
     """
+}
+
+
+def getLaneNumber( fname ) {
+    if (fname.contains("L001")){
+        return "Lane1"
+    }
+    else if (fname.contains("L002")){
+        return "Lane2"
+    }
+    else if (fname.contains("L003")){
+        return "Lane3"
+    }
+    else if (fname.contains("L004")){
+        return "Lane4"
+    }
 }
 
 workflow fastqc_multiqc_pipeline {
     take: fastq_file
     main:
         fastqc(fastq_file)
-        multiqc(fastqc.out.collect())
+        multiqc(fastqc.out.collect().flatten().map { it -> tuple(getLaneNumber(it.baseName), it) }.groupTuple(by: 0))
     emit:
         fastqc.out 
 }
