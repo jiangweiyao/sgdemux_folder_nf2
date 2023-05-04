@@ -1,4 +1,4 @@
-# Nextflow Workflow (DSL2) for Demultiplexing G4 Fastq Files
+# Nextflow Workflow (DSL2) for Demultiplexing G4 FASTQ Files
 
 ## Purpose
 This workflow can be used to demultiplex the raw output fastq files from the G4 instrument. The expected input is the `unfiltered_fastq` directory from the run folder `230215_G4-015_0050_1_OM1167O/`. This workflow can either demultiplex each lane independently and put the outputs in different folders (for situations such as where different lanes use the same barcode for different samples). Or demultiplex and combine the output of the lanes together into a single folder (i.e. same samples are spread across the lanes. There is a 1 to 1 correspondence between barcode sequence and sample name). 
@@ -39,8 +39,7 @@ nmask_threshold: 2
 multiqc: true
 ```
 
-#### Here is the description of the parameters:
-
+### Here is the description of the parameters:
 fastq_source_folder: 
 - Location of the folder of the FASTQ files you wish to demultiplex. Typically the "unfiltered_fastqs" in the G4 output. 
 - Can be a S3 or a local location. 
