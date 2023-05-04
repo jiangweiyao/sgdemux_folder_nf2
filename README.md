@@ -13,9 +13,6 @@ Optionally, this workflow can run FastQC/MultiQC on the demultiplexed FASTQ file
 This workflow can be used directly with Nextflow Tower. This repo has an included nextflow_schema.json for generating a GUI form for the input of parameters.
 
 
-### Usage
-The "params_lane.json" file in the repo contains example parameters for running the demux workflow at the lane level. The "params_folder.json" file contains example parameters for running the demux workflow combining the lanes.
-
 ### Sample data
 You can download a tarball file containing an unfiltered_fastq dataset and corresponding samplesheets [here](https://singular-public-repo.s3.us-west-1.amazonaws.com/example_raw_files/unfiltered_fastq.tar.gz). The file needs to be untar-ed before use.
 
