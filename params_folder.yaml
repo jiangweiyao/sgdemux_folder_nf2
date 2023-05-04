@@ -1,0 +1,11 @@
+fastq_source_folder: s3://singular-public-repo/example_raw_files/unfiltered_fastq/
+file_name_root: Undetermined_
+samplesheet: s3://singular-public-repo/example_raw_files/samplesheet.csv
+output_dir_name: demuxed_file
+allowed_mismatches: 3
+min_delta: 1
+out: s3://singulargenomics1/users/JYao/nf/temp_out/sgdemux11
+lane_level: false
+filter_control: true
+nmask_threshold: 2
+multiqc: true

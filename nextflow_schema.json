@@ -19,12 +19,12 @@
                 "file_name_root": {
                     "type": "string",
                     "default": "Undetermined",
-                    "description": "The root name of FASTQ files. The name in the \"unfiltered_fastqs\" folder for G4 output is Undetermined"
+                    "description": "The root name of FASTQ files. The name in the \"unfiltered_fastqs\" folder for G4 output is Undetermined."
                 },
                 "samplesheet": {
                     "type": "string",
                     "default": "s3://singular-public-repo/example_raw_files/samplesheet.csv",
-                    "description": "The Singular Genomic style samplesheet for demultiplexing the samples."
+                    "description": "Location of the Singular Genomic style samplesheet for demultiplexing the samples."
                 },
                 "output_dir_name": {
                     "type": "string",
@@ -38,12 +38,12 @@
                 },
                 "lane_level": {
                     "type": "boolean",
-                    "description": "Whether to demultiplex at the Lane Level (True) or Flow Cell Level (False)"
+                    "description": "Whether to demultiplex at the Lane Level (True) or Flow Cell Level (False)."
                 },
                 "multiqc": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Send the demultiplexed files to FastQC and collect metrics in MultiQC."
+                    "description": "Whether to send the demultiplexed files to FastQC and collect metrics in MultiQC."
                 },
                 "allowed_mismatches": {
                     "type": "number",

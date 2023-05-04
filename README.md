@@ -26,3 +26,69 @@ nextflow run sgdemux_folder_nf2/main.nf -params-file sgdemux_folder_nf2/params_f
 ```
 
 ### Parameters
+Example input parameter files in json and yaml format are included in the repo. Below is the the content of the params_folder.yaml file.
+
+```
+fastq_source_folder: s3://singular-public-repo/example_raw_files/unfiltered_fastq/
+file_name_root: Undetermined_
+samplesheet: s3://singular-public-repo/example_raw_files/samplesheet.csv
+output_dir_name: demuxed_file
+allowed_mismatches: 3
+min_delta: 1
+out: s3://singulargenomics1/users/JYao/nf/temp_out/sgdemux11
+lane_level: false
+filter_control: true
+nmask_threshold: 2
+multiqc: true
+```
+
+#### Here is the description of the parameters:
+
+fastq_source_folder: 
+- Location of the folder of the FASTQ files you wish to demultiplex. Typically the "unfiltered_fastqs" in the G4 output. 
+- Can be a S3 or a local location. 
+- Example: "s3://singular-public-repo/example_raw_files/unfiltered_fastq/"
+
+file_name_root: 
+- The root name of FASTQ files. The name in the "unfiltered_fastqs" folder for G4 output is Undetermined.  
+- Example: "Undetermined"
+
+samplesheet: 
+- Location of the Singular Genomic style samplesheet for demultiplexing the samples. 
+- Can be a S3 or a local location. 
+- Example: "s3://singular-public-repo/example_raw_files/samplesheet.csv"
+
+output_dir_name: 
+- Name of the output folder containing the demultiplexed output. 
+- Example: "demuxed_file"
+
+out: 
+- The location of the output files. 
+- Can be a S3 or a local location. 
+- Example: "/home/ubuntu/test_demux"
+
+lane_level: 
+- Whether to demultiplex at the Lane Level (True) or Flow Cell Level (False) 
+- true or false
+
+multiqc:
+- Whether to send the demultiplexed files to FastQC and collect metrics in MultiQC.
+- true or false
+
+allowed_mismatches:
+- The number of mismatches allowed (total) between the expected and observed barcode bases for assigning reads to sample.
+- Integer. The default value on instrument is 3.
+
+min_delta:
+- The minimum number of mismatches where the best match for a read is better than the next-best match.
+- Integer. The default value on instrument is 1.
+
+nmask_threshold:
+- Mask template bases to N in all input reads where the base quality score is below the specified value.
+- Integer. The default value on instrument is 10. The default value for most applications is 2 or 0 (no masking).
+
+filter_control:
+- Filter out reads marked as control reads in their FASTQ headers.
+- true or false
+
+
