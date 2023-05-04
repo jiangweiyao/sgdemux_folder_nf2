@@ -5,50 +5,71 @@
     "description": "This pipeline uses Nextflow and processes some kind of data. The JSON Schema was built using the nf-core pipeline schema builder.",
     "type": "object",
     "definitions": {
-        "required_parameters": {
-            "title": "Required Parameters",
+        "parameters": {
+            "title": "Parameters",
             "type": "object",
-            "description": "Parameters to run pipeline (Defaults are examples)",
+            "description": "",
             "default": "",
             "properties": {
                 "fastq_source_folder": {
                     "type": "string",
-                    "description": "Folder containing the files you want to demux",
+                    "description": "Location of the folder of the FASTQ files you wish to demultiplex. Typically the \"unfiltered_fastqs\" in the G4 output.",
                     "default": "s3://singular-public-repo/example_raw_files/unfiltered_fastq/"
                 },
                 "file_name_root": {
                     "type": "string",
-                    "description": "File Root Name",
-                    "default": "Undetermined_"
+                    "default": "Undetermined",
+                    "description": "The root name of FASTQ files. The name in the \"unfiltered_fastqs\" folder for G4 output is Undetermined"
                 },
                 "samplesheet": {
                     "type": "string",
-                    "description": "Singular Samplesheet",
-                    "default": "s3://singular-public-repo/example_raw_files/samplesheet.csv"
+                    "default": "s3://singular-public-repo/example_raw_files/samplesheet.csv",
+                    "description": "The Singular Genomic style samplesheet for demultiplexing the samples."
                 },
                 "output_dir_name": {
                     "type": "string",
-                    "description": "Out directory name",
-                    "default": "demuxed_file"
-                },
-                "allowed_mismatches": {
-                    "type": "integer",
-                    "description": "Combined mismatches allowed on barcode(s)",
-                    "minimum": 0,
-                    "maximum": 5,
-                    "default": 3
-                },
-                "min_delta": {
-                    "type": "integer",
-                    "description": "Minimum delta from next closest match",
-                    "default": 1,
-                    "minimum": 1,
-                    "maximum": 3
+                    "default": "demuxed_file",
+                    "description": "Name of the output folder containing the demultiplexed output."
                 },
                 "out": {
                     "type": "string",
-                    "description": "Output Location",
-                    "default": "s3://singulargenomics1/users/JYao/nf/temp_out/sgdemux1"
+                    "default": "/home/ubuntu/test_demux",
+                    "description": "The location of the output files."
+                },
+                "lane_level": {
+                    "type": "boolean",
+                    "description": "Whether to demultiplex at the Lane Level (True) or Flow Cell Level (False)"
+                },
+                "multiqc": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Send the demultiplexed files to FastQC and collect metrics in MultiQC."
+                },
+                "allowed_mismatches": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 6,
+                    "default": 3,
+                    "description": "The number of mismatches allowed (total) between the expected and observed barcode bases for assigning reads to sample."
+                },
+                "min_delta": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "default": 1,
+                    "description": "The minimum number of mismatches where the best match for a read is better than the next-best match."
+                },
+                "nmask_threshold": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 20,
+                    "description": "Mask template bases to N in all input reads where the base quality score is below the specified value.",
+                    "default": 2
+                },
+                "filter_control": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Filter out reads marked as control reads in their FASTQ headers."
                 }
             },
             "required": [
@@ -56,41 +77,19 @@
                 "file_name_root",
                 "samplesheet",
                 "output_dir_name",
+                "out",
+                "lane_level",
+                "multiqc",
                 "allowed_mismatches",
                 "min_delta",
-                "out"
+                "nmask_threshold",
+                "filter_control"
             ]
-        },
-        "optional_parameters": {
-            "title": "Optional Parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "properties": {
-                "lane_level": {
-                    "type": "boolean",
-                    "description": "Run demuxer on a per lane basis"
-                },
-                "filter_control": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Remove reads flagged as control (typically PhiX) from all results"
-                },
-                "nmask_threshold": {
-                    "type": "number",
-                    "minimum": 0,
-                    "default": 2,
-                    "description": "Mask reads with Quality Score less than"
-                }
-            }
         }
     },
     "allOf": [
         {
-            "$ref": "#/definitions/required_parameters"
-        },
-        {
-            "$ref": "#/definitions/optional_parameters"
+            "$ref": "#/definitions/parameters"
         }
     ]
 }
