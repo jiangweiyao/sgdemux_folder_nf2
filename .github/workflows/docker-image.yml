@@ -9,7 +9,9 @@ jobs:
 
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v3a
+    - name: Add SHORT_SHA env property with commit short sha
+      run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
     - name: set release date
       run: |
         echo "TIME_STAMP=$(date +%s)" >> ${GITHUB_ENV}
@@ -20,7 +22,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag jiangweiyao/sgdemux:$TIME_STAMP --tag jiangweiyao/sgdemux:latest
+      run: docker build . --file Dockerfile --tag jiangweiyao/sgdemux:${GITHUB_SHA} --tag jiangweiyao/sgdemux:master
     - name: docker push
       run: |
         docker push jiangweiyao/sgdemux --all-tags
