@@ -30,7 +30,6 @@ workflow sgdemux_folder_pipeline {
 
 
 process sgdemux_folder {
-
     //errorStrategy 'ignore'
     publishDir params.out, overwrite: true
     memory '30 GB'
